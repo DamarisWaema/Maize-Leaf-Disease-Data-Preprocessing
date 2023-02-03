@@ -49,10 +49,10 @@ def deleteImagesWithNoNLB():
         nlbimages.append(file)
     print('Total number of images after deleting none  NLB images is: ' + str(len(nlbimages)))
 #function calls
-getNamesofAllImagesInBoomFolder()
-uniqueNamesofNoneNLBImagesList=getNamesOfAllNoneNLBImages()
+#getNamesofAllImagesInBoomFolder()
+#uniqueNamesofNoneNLBImagesList=getNamesOfAllNoneNLBImages()
 #copyRowsofImagesWithNoNLBToNewCSV()
-deleteImagesWithNoNLB()
+#deleteImagesWithNoNLB()
 #print(allImages)
 
 
