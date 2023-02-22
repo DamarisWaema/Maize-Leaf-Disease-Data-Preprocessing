@@ -63,4 +63,4 @@ def remove6000_4000AND4000_6000ImagesAnnotationsFromCSV():
 #getNamesofAllImagesInBoomFolder() #gets all images before deleting 6000*4000 or 4000*6000 ones
 #count6000_4000AND4000_6000Images() #moves all images that are 6000*4000 or 4000*6000 to a different folder
 #move6000_4000AND4000_6000Images()
-remove6000_4000AND4000_6000ImagesAnnotationsFromCSV()
+#remove6000_4000AND4000_6000ImagesAnnotationsFromCSV()

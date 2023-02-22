@@ -54,8 +54,8 @@ def moveUnsampledImages():
         name = image + '.JPG'
         shutil.move(name, '2446UnsampledImages/' + name)
 
-getNamesofAllImagesInBoomFolder()
+#getNamesofAllImagesInBoomFolder()
 #testingSampling
-unsampledImagesToDelete=sample500Images()
+#unsampledImagesToDelete=sample500Images()
 #removeunsampledImagesAnnotationsFromCSV3()
-moveUnsampledImages()
+#moveUnsampledImages()
