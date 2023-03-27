@@ -9,14 +9,14 @@ from convtools import conversion as c
 from convtools.contrib.tables import Table
 import numpy as np
 os.chdir("D:/PHD Data/Real NBL/images_handheld")
-handHeldAnnotationsEdit3 = pd.read_csv('annotations_handheld_edit3.csv')
+handHeldAnnotations = pd.read_csv('annotations_handheld_edit4.csv')
 
 allImages=[]
 testImages=[]
 uniqueNamesofNoneNLBImagesList=[]
 
 
-def getNamesofAll510Images():
+def getNamesofAll499Images():
     for file in glob.glob("*.JPG"):
         allImages.append(file)
 
@@ -25,7 +25,7 @@ def getNamesofAll510Images():
     print('Total number of images before splitting is: ' + str(len(allImages)))
 
 def splitData():
-    n=102
+    n=100
     for i in range(n):
         testImage=choice(allImages)
         testImages.append(testImage)
@@ -39,36 +39,36 @@ def splitData():
 
 def copyImagesToRespectiveFolders():
     for image in testImages:
-        shutil.copy(image, '102TestImages/' + image)
+        shutil.copy(image, '100TestImages/' + image)
 
     for trainImg in trainImages:
-        shutil.copy(trainImg, '408TrainImages/' + trainImg)
+        shutil.copy(trainImg, '399TrainImages/' + trainImg)
     print('Done copying images')
 
 
 def getAnnotationsForTestAndTrainImages():
-    totalAnnotationsFor510Images=len(handHeldAnnotationsEdit3)
-    allAnnotationsfor510Images=handHeldAnnotationsEdit3
-    df_filteredTrain = handHeldAnnotationsEdit3
+    totalAnnotationsFor499Images=len(handHeldAnnotations)
+    allAnnotationsfor499Images=handHeldAnnotations
+    df_filteredTrain = handHeldAnnotations
 
     for image_Name in testImages:
         for _, row in df_filteredTrain.iterrows():
             if row.filename == image_Name:
                 df_filteredTrain = df_filteredTrain[(df_filteredTrain['filename'] != image_Name)]
-    print('Total number of annotations for the 510 images is: '+str(totalAnnotationsFor510Images))
-    print('Total number of annotations for the 408 train images is: '+str(len(df_filteredTrain)))
-    testimageAnnotations=pd.concat([allAnnotationsfor510Images,df_filteredTrain]).drop_duplicates(keep=False)
-    print('Total number of annotations for the 102 test images is: '+str(len(testimageAnnotations)))
+    print('Total number of annotations for the 499 images is: '+str(totalAnnotationsFor499Images))
+    print('Total number of annotations for the 399 train images is: '+str(len(df_filteredTrain)))
+    testimageAnnotations=pd.concat([allAnnotationsfor499Images,df_filteredTrain]).drop_duplicates(keep=False)
+    print('Total number of annotations for the 100 test images is: '+str(len(testimageAnnotations)))
     print(testImages[0])
     print(testimageAnnotations.head)
     print(trainImages[0])
 
     print(df_filteredTrain.head)
 
-    df_filteredTrain.to_csv('annotations_handheld_edit4.csv', index=False)
-    testimageAnnotations.to_csv('annotations_handheld_edit5.csv', index=False)
+    df_filteredTrain.to_csv('annotations_handheld_edit5.csv', index=False)
+    testimageAnnotations.to_csv('annotations_handheld_edit6.csv', index=False)
 
-#getNamesofAll510Images()
+#getNamesofAll499Images()
 #trainImages=splitData()
 #copyImagesToRespectiveFolders()
 #getAnnotationsForTestAndTrainImages()

@@ -9,25 +9,25 @@ from convtools import conversion as c
 from convtools.contrib.tables import Table
 import numpy as np
 os.chdir("D:/PHD Data/Real NBL/images_handheld")
-trainAnnotations = pd.read_csv('annotations_handheld_edit4.csv')
-testAnnotations = pd.read_csv('annotations_handheld_edit5.csv')
+trainAnnotations = pd.read_csv('annotations_handheld_edit5.csv')
+testAnnotations = pd.read_csv('annotations_handheld_edit6.csv')
 
 testImages=[]
 trainImages=[]
 
 def getTrainImages():
-    for file in glob.glob("408TrainImages/*.JPG"):
+    for file in glob.glob("399TrainImages/*.JPG"):
         trainImages.append(file)
 
-    for file in glob.glob("408TrainImages/*.Jpeg"):
+    for file in glob.glob("399TrainImages/*.Jpeg"):
         trainImages.append(file)
     print('Total number of train images in train folder is: ' + str(len(trainImages)))
 
 def getTestImages():
-    for file in glob.glob("102TestImages/*.JPG"):
+    for file in glob.glob("100TestImages/*.JPG"):
         testImages.append(file)
 
-    for file in glob.glob("102TestImages/*.Jpeg"):
+    for file in glob.glob("100TestImages/*.Jpeg"):
         testImages.append(file)
     print('Total number of test images in test folder is: ' + str(len(testImages)))
 def getUniquNamesInTrainAnnotations():
