@@ -1,2 +1,3 @@
-# Maize Leaf Disease Data-Preprocessing
+# Maize Leaf Disease Detection
 This repository contains python files used to pre-process maize leaf disease data in preparation for using it to train a faster R-CNN algorithm to detect northern leaf blight lesions from infected maize leaves. This is to allow for early and accurate disease detection by farmers for timely intervention to optimize crop yield quality and quantity. Accurate maize leaf disease detection ensures that the right treatment is used for the identified disease. 
+It also contains a Jupyter Notebook that I used for training a pre-trained faster R-CNN algorithm to detect NLB lesions from infected maize leaves.
