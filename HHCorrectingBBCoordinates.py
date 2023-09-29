@@ -9,8 +9,8 @@ from convtools import conversion as c
 from convtools.contrib.tables import Table
 import numpy as np
 
-os.chdir("D:/PHD Data/Real NBL/images_handheld")
-handHeldAnnotations=pd.read_csv('annotations_handheld_edit3.csv')
+os.chdir("D:/PHD Data/Real NBL/final80Testing_Resize/New")
+handHeldAnnotations=pd.read_csv('annotationsTest-Resized.csv')
 affectedImages=[]
 affectedRows=[]
 

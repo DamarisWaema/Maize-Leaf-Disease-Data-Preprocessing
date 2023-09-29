@@ -11,37 +11,37 @@ from convtools import conversion as c
 from convtools.contrib.tables import Table
 import numpy as np
 
-#os.chdir("D:/PHD Data/Real NBL/annotations") # Uncomment to concatenate dataframes
-os.chdir("D:/PHD Data/Real NBL/all1800HHTrainImages") #comment to concatenate DFs
-# addAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-ArithmeticAdd.csv')
-# multiplyAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-ArithmeticMultiply.csv')
-# gaussianAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-GaussianNoise.csv')
-# HFAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-HF.csv')
-# resizedAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-Resized.csv')
-# rotateAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-Rotate-45To45.csv')
-# ShearXAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-ShearX.csv')
-# VFAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-VF.csv')
-trainImages=[]
-trainAnnotations=pd.read_csv('all1800HHTrainAnnotations.csv')
+os.chdir("D:/PHD Data/Real NBL/annotations") # Uncomment to concatenate dataframes
+addAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-ArithmeticAdd.csv')
+multiplyAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-ArithmeticMultiply.csv')
+gaussianAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-GaussianNoise.csv')
+HFAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-HF.csv')
+resizedAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-Resized.csv')
+rotate270ShotNoise = pd.read_csv('annotationsFor225SelectedTrainImages-Rotate270ShotNoise.csv')
+rot90 = pd.read_csv('annotationsFor225SelectedTrainImages-Rotate90.csv')
+rot180 = pd.read_csv('annotationsFor225SelectedTrainImages-Rotate180.csv')
 
-# def concatenateAnnotations():
-#     frames=[addAnnotations, multiplyAnnotations, gaussianAnnotations, HFAnnotations, resizedAnnotations, rotateAnnotations, ShearXAnnotations, VFAnnotations]
-#     allAnnotations=pd.concat(frames, ignore_index=True)
-#     allAnnotations.to_csv('all1800HHTrainAnnotations.csv', index=False)
+VFAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages-VF.csv')
+AllAnnotations= pd.read_csv('all2025HHTrainAnnotations.csv')
+maxPool=pd.read_csv('aTest-Resized-Maxpooling2.csv')
+def concatenateAnnotations():
+    frames=[addAnnotations, rot180, multiplyAnnotations, gaussianAnnotations, HFAnnotations, resizedAnnotations, rotate270ShotNoise, rot90, VFAnnotations]
+    allAnnotations=pd.concat(frames, ignore_index=True)
+    allAnnotations.to_csv('all2025HHTrainAnnotations.csv', index=False)
 
-def getTrainImages():
-    for file in glob.glob("*.jpg"):
-        trainImages.append(file)
+def CorrectBoundingBoxes():
+    print(maxPool.head())
 
-def getUniqueNamesInTrainAnnotations():
-    trainnames = trainAnnotations.filename.unique()
-    print('Number of unique images in train annotations is: ' + str(len(trainnames)))
-    print('Total number of train images in train folder is: ' + str(len(trainImages)))
+    for row in maxPool.itertuples():
+        maxPool.at[row.Index, 'xmin'] = round(float(row.xmin))
+        maxPool.at[row.Index, 'ymin'] = round(float(row.ymin))
+        maxPool.at[row.Index, 'xmax'] = round(float(row.xmax))
+        maxPool.at[row.Index, 'ymax'] = round(float(row.ymax))
 
-
-
-
+    maxPool.to_csv('annotationsTest-Resized-Maxpooling.csv', index=False)
+    print(maxPool.head())
+    print(len(maxPool.filename.unique()))
 #concatenateAnnotations()
-getTrainImages()
-getUniqueNamesInTrainAnnotations()
+CorrectBoundingBoxes()
+
 

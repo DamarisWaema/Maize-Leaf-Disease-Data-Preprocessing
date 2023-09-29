@@ -4,17 +4,6 @@ import cv2
 import imgaug.augmenters as iaa
 from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
 
-import csv
-import shutil
-# Convootls package is used to enable deleting rows from the CSV for images without NLB
-from convtools import conversion as c
-from convtools.contrib.tables import Table
-import numpy as np
-
-# os.chdir("D:/PHD Data/Real NBL/images_handheld/399TrainImages")
-# all225TrainAnnotations = pd.read_csv('annotationsFor225SelectedTrainImages.csv')
-# path="D:/PHD Data/Real NBL/images_handheld/399TrainImages"
-# trainImages=[]
 
 
 #Code from github repository
@@ -23,7 +12,7 @@ import numpy as np
 
 # specify augmentations that will be executed on each image randomly
 seq = iaa.Sequential([
-    iaa.Fliplr(1.0)], # vertical flip 1.0 is the flip probability. Means that all images will be flipped. Change here
+    iaa.imgcorruptlike.GaussianNoise(severity=1)], # Change here
 
     random_order=False) # apply augmenters in random order# apply augmenters in random order
 
@@ -87,7 +76,7 @@ def save_augmentations(images: list, bbs: list, df: pd.DataFrame, filename: str,
         # define new name
         name=list({filename})[0].split('.')
         #aug_img_name = f'{filename}_{i}.jpg'
-        aug_img_name = name[0]+'-HF.jpg' #change here
+        aug_img_name = name[0]+'-GaussianNoise.jpg' #change here
 
         # check if image should be resized
         org_shape = (None, None)
@@ -125,7 +114,7 @@ def save_augmentations(images: list, bbs: list, df: pd.DataFrame, filename: str,
 
 if __name__ == '__main__':
     # specify folder
-    folder = '225Selectedjpgs'
+    folder = 'additionalHH50TrainFrom5ORMore'
     # define number of augmentations per image
     augmentations = 1
     # specify if the image should be resized
@@ -135,14 +124,14 @@ if __name__ == '__main__':
     # define input folder
     input_folder = os.path.join('..', folder)
     # define and create output_folder
-    output_folder = os.path.join('..', f'{folder}_HorizontalFlip') #Change here
+    output_folder = os.path.join('..', f'{folder}-GaussianNoise') #Change here
     if not os.path.isdir(output_folder):
         os.makedirs(output_folder)
     # 1. get a list of all images in the folder
     img_list = [img for img in os.listdir(input_folder) if img.endswith('.jpg')]
 
     # 2. load DataFrame with annotations
-    df = pd.read_csv(os.path.join('..', 'annotations', f'annotationsFor225SelectedTrainImages.csv'))
+    df = pd.read_csv(os.path.join('..', 'annotations', f'trainExtra50From5ORMore.csv'))
     # create a new pandas table for the augmented images' bounding boxes
     aug_df = pd.DataFrame(columns=df.columns.tolist())
 
@@ -154,5 +143,5 @@ if __name__ == '__main__':
         aug_df = save_augmentations(aug_images, aug_bbs, aug_df, filename, output_folder, resize, new_shape)
 
     # save new DataFrame
-    aug_df.to_csv(os.path.join('..', 'annotations', f'annotationsFor225SelectedTrainImages-HF.csv'))
+    aug_df.to_csv(os.path.join('..', 'annotations', f'trainExtra50From5ORMore-GaussianNoise.csv'))
 
